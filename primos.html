@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        color: #222;
+    }
+    .box-primos {
+        border: 1px solid;
+        padding: 1rem;
+        margin: 1rem;
+        color: #666;
+    }
+    .panel {
+        margin: 1rem 0;
+    }
+</style>
+<body>
+    <div class="panel">
+        <h2>Suma de los primos de los X primeros números</h2>
+        <span>La Suma de los primos de los <input type="number" id="inputPrimos" onchange="sumPrimos()" /> primeros números es <span id="number"></span></span>
+        <div id="totalPrimos" class="box-primos"></div>
+    </div>
+    <div class="panel">
+        <h2>Suma de los primeros X números primos</h2>
+        <span>La suma de los primeros <input type="number" id="inputFirstPrimos" onchange="sumFirstPrimos()" /> números primos es <span id="numberFirst"></span></span>
+        <div id="totalFirstPrimos" class="box-primos"></div>
+    </div>
+</body>
+<script>
+    const isPrimo = (number) => {
+        for (var i = 2; i < number; i++) {
+            if (number % i === 0) {
+                return false;
+            }
+        }
+        return number !== 1;
+    }
+
+    const sumPrimos = () => {
+        const {value} = document.querySelector('#inputPrimos');
+        let sum = 0;
+        let total = '';
+        const primos = [];
+        for(var i = 1; i < value; i++) {
+            if(isPrimo(i)) {
+                sum += i;
+                total += `${i}, `
+            }
+        }
+        document.querySelector('#number').innerHTML = sum;
+        document.querySelector('#totalPrimos').innerHTML = total;
+    }
+
+    const sumFirstPrimos = () => {
+        const {value} = document.querySelector('#inputFirstPrimos');
+        let sum = 0;
+        let i = 1;
+        const numbers = [];
+        let total = ''
+        do {
+            if(isPrimo(i)) {
+                sum += i;
+                numbers.push(i);
+                total += `${i}, `
+            }
+            i++
+        } while (numbers.length < value);
+        document.querySelector('#numberFirst').innerHTML = sum;
+        document.querySelector('#totalFirstPrimos').innerHTML = total;
+    }
+
+</script>
+</html>
